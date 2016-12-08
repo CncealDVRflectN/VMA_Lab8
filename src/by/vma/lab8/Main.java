@@ -183,10 +183,12 @@ public class Main {
     private static Matrix A;
     private static Matrix C;
     private static final int n = 5;
-    private static double lambda = 0.780861;
+    private static final double lambda = 0.780861;
+    private static final double det = 0.006954599817789778;
 
     public static void main(String[] args) {
         double[] p;
+        double tr = 0;
         Vector eigen;
         Vector r;
         try {
@@ -200,20 +202,28 @@ public class Main {
             p = methodKrylov();
             System.out.println("Коэфициенты: ");
             for (int i = 0; i < n; i++) {
-                System.out.print("P" + i + " = ");
+                System.out.print("P" + (i + 1) + " = ");
                 System.out.format("%.5f", p[i]);
                 System.out.println();
             }
+            for (int i = 0; i < n; i++) {
+                tr += A.matrix[i][i];
+            }
+            System.out.println();
+            System.out.print("Невязка P1: ");
+            System.out.format("%e\n", tr - p[0]);
+            System.out.print("Невязка Pn: ");
+            System.out.format("%e\n", det - p[n - 1]);
             System.out.println();
             eigen = findEigenvector(lambda, p);
             System.out.println("Собственный вектор соответствующий максимальному собственному значению " + lambda + " :");
             eigen.print(false);
             System.out.println();
             r = A.mul(eigen).subtract(eigen.mul(lambda));
-            System.out.println("Вектор невязки: ");
+            System.out.println("Вектор невязки собственного вектора: ");
             r.print(true);
             System.out.println();
-            System.out.println("Норма вектора невязки: " + r.normI());
+            System.out.println("Норма вектора невязки собственного вектора: " + r.normI());
         } catch (Exception e) {
             e.printStackTrace();
         }

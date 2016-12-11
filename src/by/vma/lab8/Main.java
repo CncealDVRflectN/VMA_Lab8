@@ -183,7 +183,7 @@ public class Main {
     private static Matrix A;
     private static Matrix C;
     private static final int n = 5;
-    private static final double lambda = 0.780861;
+    private static final double lambda = 0.7808685214102775;
     private static final double det = 0.006954599817789778;
 
     public static void main(String[] args) {
@@ -216,7 +216,7 @@ public class Main {
             System.out.format("%e\n", det - p[n - 1]);
             System.out.println();
             eigen = findEigenvector(lambda, p);
-            System.out.println("Собственный вектор соответствующий максимальному собственному значению " + lambda + " :");
+            System.out.println("Собственный вектор соответствующий максимальному собственному значению " + lambda + ":");
             eigen.print(false);
             System.out.println();
             r = A.mul(eigen).subtract(eigen.mul(lambda));
